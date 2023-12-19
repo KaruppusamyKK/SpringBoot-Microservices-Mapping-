@@ -2,6 +2,7 @@ package com.Micro.demo.Controller;
 
 import com.Micro.demo.Entity.Employee;
 import com.Micro.demo.Entity.Team;
+import com.Micro.demo.ExceptionHandling.TeamNotExists;
 import com.Micro.demo.Repo.EmpRepo;
 import com.Micro.demo.Repo.TeamRepo;
 import com.Micro.demo.ServiceImpl.ServiceClass;
@@ -20,28 +21,13 @@ public class ControllerClass {
     @Autowired
     TeamRepo teamRepo;
 
-    @PostMapping("/post")
+    @PostMapping("/PostEmployee")
     public Employee InsertEmployeeController(@RequestBody Employee employee) {
         return serviceClass.InsertEmployeeService(employee);
     }   // employee---> team
 
-//    @PostMapping("/postTeam")
-//        public Team InsertTeamController(@RequestBody Team team)
-//    {
-//        System.out.println("Team inserted are  :"+team);
-//        return serviceClass.InsertTeamService(team);
-//    }
-//@PostMapping("/postTeam")
-//public Team InsertTeamController(@RequestBody Team team) {
-//    System.out.println("Team inserted are  :" + team);
-//    for (Employee employee : team.getEmployeeList()) {
-//        employee.setTeam(team);
-//    }
-//    return serviceClass.InsertTeamService(team);
-//}
 
-
-    @PostMapping("/postTeam")
+    @PostMapping("/postTeamWithEmployee")
     public Team InsertTeamController(@RequestBody Team team) {
     System.out.println("Team inserted are  :" + team);
 
@@ -51,10 +37,73 @@ public class ControllerClass {
     for (Employee employee : team.getEmployeeList()) {
         employee.setTeam(team);
     }
-
     return serviceClass.InsertTeamService(team);
     //   team---> employee
 }
+
+//    @PostMapping("/PostEmployeeWithSameTeam/{id}")
+//    public Team InserTeamWithSameTeamController(@PathVariable Long id, @RequestBody Team team) {
+//        for (Employee employee : team.getEmployeeList()) {
+//            employee.setTeam(team);
+//        }
+//        return serviceClass.InserTeamWithSameTeamService(team, id);
+//    }
+
+    @PostMapping("/postTeamWithEmployee/{id}")
+    public Team InserTeamWithSameTeamController(@PathVariable Long id, @RequestBody Team team) {
+        for (Employee employee : team.getEmployeeList()) {
+            employee.setTeam(team);
+        }
+        team.setId(id);
+        return serviceClass.InserTeamWithSameTeamService(team, id);
+    }
+
+    @PostMapping("/postTeamWithEmployeeAddMoreEmployee/{name}")
+    public Team InsertEmployeeForTheSameTeamController(@PathVariable String name,@RequestBody Employee employee) {
+        if(teamRepo.findByTeamName(name).isEmpty())
+            throw  new TeamNotExists("Team with name :"+name +"doesn't exists");
+        else {
+            Team team = teamRepo.findByTeamName(name).get();
+            team.getEmployeeList().add(employee);
+            employee.setTeam(team);
+            return serviceClass.InsertEmployeeForTheSameTeam(name);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

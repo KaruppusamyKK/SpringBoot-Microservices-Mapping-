@@ -22,50 +22,35 @@ public class Employee {
     @JoinColumn(name = "fk",referencedColumnName = "Id")
     Team team;
 
+
+
+
+
     public Employee() {
     }
-
     public Long getEmplID() {
         return emplID;
     }
-
     public void setEmplID(Long emplID) {
         this.emplID = emplID;
     }
-
     public String getEmplName() {
         return emplName;
     }
-
     public void setEmplName(String emplName) {
         this.emplName = emplName;
     }
-
     public int getEmplAge() {
         return emplAge;
     }
-
     public void setEmplAge(int emplAge) {
         this.emplAge = emplAge;
-
-
     }
-
     public Team getTeam() {
         return team;
     }
-
     public void setTeam(Team team) {
         this.team = team;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Employee{" +
-//                "emplID=" + emplID +
-//                ", emplName='" + emplName + '\'' +
-//                ", emplAge=" + emplAge +
-//                ", team=" + team +
-//                '}';
-//    }
 }
