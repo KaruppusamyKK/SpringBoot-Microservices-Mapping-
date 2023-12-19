@@ -16,13 +16,15 @@ public class Employee {
     private String emplName;
     private int emplAge;
 
-
+//-------------------------- team mapping-------------------------------//
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk",referencedColumnName = "Id")
     Team team;
+//------------------------------------------------------------------------//
 
-
+//    @ManyToOne(cascade = CascadeType.PERSIST)
+//    @Joi
 
 
 

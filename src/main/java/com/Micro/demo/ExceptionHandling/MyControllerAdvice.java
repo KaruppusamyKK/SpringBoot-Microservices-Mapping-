@@ -29,4 +29,5 @@ public class MyControllerAdvice {
                         HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(errorHandler, HttpStatus.NOT_FOUND);
     }
+
 }

@@ -5,6 +5,7 @@ import com.Micro.demo.Entity.Team;
 import com.Micro.demo.ExceptionHandling.TeamNotExists;
 import com.Micro.demo.Repo.EmpRepo;
 import com.Micro.demo.Repo.TeamRepo;
+import com.Micro.demo.ResponseHandler.Response;
 import com.Micro.demo.ServiceImpl.ServiceClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,18 +14,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @RestController
-public class ControllerClass {
+public class ControllerClass{
     @Autowired
     ServiceClass serviceClass;
     @Autowired
     TeamRepo teamRepo;
 
     @PostMapping("/PostEmployee")
-    public Employee InsertEmployeeController(@RequestBody Employee employee) {
-        return serviceClass.InsertEmployeeService(employee);
-    }   // employee---> team
+    public ResponseEntity<Response> InsertEmployeeController(@RequestBody Employee employee) {
+    return new ResponseEntity<>( new Response("Success",
+            null,serviceClass.InsertEmployeeService(employee),
+            null),HttpStatus.ACCEPTED);
+    }
+
+
 
 
     @PostMapping("/postTeamWithEmployee")

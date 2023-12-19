@@ -11,6 +11,7 @@ public class ErrorHandler {
     String ErrorMessage;
     HttpStatus httpStatus;
 
+
     public ErrorHandler(String errorMessage, HttpStatus httpStatus) {
         ErrorMessage = errorMessage;
         this.httpStatus = httpStatus;
